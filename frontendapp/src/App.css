@@ -1,0 +1,119 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* New CSS */
+body {
+  background-color: #e7f0fd;
+} 
+
+.sidebar-container {
+  position: fixed;
+  width: 200px;
+  height: 100%;
+  left: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  color: #fff;
+}
+
+.topbar-logo {
+  font-size: 20px;
+  padding-top: 20px;
+  padding-left: 240px;
+}
+
+.logo {
+  padding: 10px 15px 10px 30px;
+  font-size: 30px;
+  color: #fff;
+}
+
+.sidebar-navigation {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  position: relative;
+}
+
+.sidebar-navigation li {
+  background-color: transparent;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  line-height: 30px;
+  margin-left: 40px;
+}
+
+.sidebar-navigation .header {
+  font-size: 12px;
+  text-transform: uppercase;
+  padding: 10px 15px 10px 30px;
+}
+
+.content-container {
+  padding-top: 20px;
+  padding-left: 240px;
+  padding-right: 40px;
+}
+
+.card-size {
+  max-width: 18rem;
+}
+
+.btn-size {
+  width: 40px;
+  height: auto;
+  margin: 5px;
+}
+
+.btn-display {
+  display: inline-block;
+  text-align: center;
+}
+
+.card-margin {
+  margin-bottom: 10px;
+  margin-top: 5px;
+}
+
+.chart-display {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
