@@ -1,5 +1,8 @@
 package lt.vtmc.ProTaMa.model;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name="task")
@@ -25,6 +33,14 @@ public class Task {
 	private TaskPriority taskPriority;
 	@Column(name="taskState")
 	private TaskState taskState;
+	
+	@Column(name="created", updatable = false)
+	@CreationTimestamp
+	private LocalDateTime created;
+	@Column(name="updated")
+	@UpdateTimestamp
+	private LocalDateTime updated;
+	
 	@ManyToOne
 	@JoinColumn(name="projectId")
 	private Project project;
@@ -38,6 +54,7 @@ public class Task {
 		this.taskPriority = taskPriority;
 		this.taskState = taskState;
 		this.project = project;
+		
 	}
 	
 	public Long getTaskId() {
@@ -76,8 +93,24 @@ public class Task {
 	public void setProject(Project project) {
 		this.project = project;
 	}
+
+	public LocalDateTime getCreated() {
+		return created;
+	}
+
+	public void setCreated(LocalDateTime created) {
+		this.created = created;
+	}
+
+	public LocalDateTime getUpdated() {
+		return updated;
+	}
+
+	public void setUpdated(LocalDateTime updated) {
+		this.updated = updated;
+	}
 	
-	
+		
 	
 	
 

@@ -3,6 +3,8 @@
 # Compiled class file
 *.class
 
+*.properties
+
 # Log file
 *.log
 
@@ -40,6 +42,7 @@ local.properties
 .settings/
 .loadpath
 .recommenders
+
 
 ### Maven ###
 target/
