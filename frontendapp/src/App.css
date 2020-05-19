@@ -117,3 +117,20 @@ body {
   flex-direction: row;
   justify-content: space-around;
 }
+
+.icon-class-1 {
+  color: #5bc0de;
+  height: 40px;
+  width: 40px;
+}
+
+.icon-class {
+  color: #5bc0de;
+  height: 30px;
+  width: 30px;
+}
+
+.button-color-info {
+  background-color: #5bc0de;
+  color: whitesmoke;
+}

@@ -44,7 +44,7 @@ class UpdateProject extends Component {
         // const {projectId, projectTitle, projectDescription, projectStatus} = this.state
         return (
             <div className="content-container">
-                <h3 className="text-center">Update <code>Project</code></h3>
+                <h3 className="text-center">Update Project</h3>
                     <form onSubmit={this.updateForm}>
                         <div className="form-group">
                             <label htmlFor="projectTitle">Project Title</label>
@@ -60,12 +60,13 @@ class UpdateProject extends Component {
                             <label htmlFor="projectStatus">Project Status</label>
                             <select className="form-control" id="status"
                             value={this.state.projectStatus} name="projectStatus" onChange={this.inputChange}>
+                                <option value="" selected disabled hidden>Choose Status</option>
                                 <option value="NEW">NEW</option>
                                 <option value="INPROGRESS">INPROGRESS</option>
                                 <option value="COMPLETED">COMPLETED</option>
                             </select>
                         </div>
-                        <button type="submit" className="btn btn-primary">Update</button>
+                        <button type="submit" className="btn button-color-info">Update</button>
                     </form>
             </div>
 

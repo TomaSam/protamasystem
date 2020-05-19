@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import '../App.css';
 import Service from './Service';
-import { MdPageview } from "react-icons/md";
-import { FaEdit, FaTrashAlt, FaRegEdit } from "react-icons/fa";
+import { FaEdit, FaTrashAlt, FaPlusSquare, FaFileAlt } from "react-icons/fa";
 import {Link} from 'react-router-dom';
 import ProjectSearch from './ProjectSearch';
+import { IconContext } from "react-icons";
 
 class ProjectsList extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            projects: [],
+            sortedprojects: [],
             tasks: [],
             message: null
     }
@@ -33,7 +33,11 @@ class ProjectsList extends Component {
         .then(result => {
             console.log(result);
             const projects = result.data;
-            this.setState({projects});
+            const sortedprojects = projects.sort(function(a, b) {
+                return b.projectId - a.projectId;
+            });
+            console.log(sortedprojects);
+            this.setState({sortedprojects});
         })
     }
 
@@ -81,51 +85,76 @@ class ProjectsList extends Component {
         return (
             <div className="content-container">
                <ProjectSearch search={this.search}/>
-                <button className="btn btn-info btn-lg pt-pr-pb-5" 
-                onClick = {() => this.createProject()}><FaRegEdit />Create Project</button>
-                <h3 className="text-center pb-3">List of <code>Projects</code></h3>
+                {/* <button className="btn btn-info btn-lg pt-pr-pb-5" 
+                onClick = {() => this.createProject()}><FaPlusSquare /></button> */}
+                <div >
+                <IconContext.Provider value={{ className: "icon-class-1" }}  >
+                    <div>
+                        <FaPlusSquare onClick = {() => this.createProject()} title="Create new project" />
+                    </div>
+                </IconContext.Provider>
+                
+                <h3 className="text-center pb-3">List of Projects</h3>
+                </div>
                 <div>
                 {this.state.message && <h4>test{this.state.message}</h4>}
                 </div>
-                <table className="table table-striped">
+                <table className="table">
                     <thead className="thead-primary">
                         <tr>
                         <th scope="col">#</th>
                         <th scope="col">Title</th>
                         <th scope="col">Status</th>
-                        <th scope="col">General<br></br>tasks</th>
-                        <th scope="col">InProgress<br></br>tasks</th>
+                        <th scope="col">Progress</th>
                         <th scope="col">View</th>
                         <th scope="col">Edit</th>
                         <th scope="col">Delete</th>
                         </tr>
                     </thead>
                     <tbody>
-                    {this.state.projects.map((project, i) =>
+                    {this.state.sortedprojects.map((project, i) =>
                         <tr key={project.projectId}>
                             <th scope="row">{i+1}</th>
                             <td>{project.projectTitle}</td>
                             <td>
                                 <span className={this.changeBtnColor(project.projectStatus)}>
                                 {project.projectStatus}</span></td>
-                            <td>{this.generalTasks(project.projectId)}</td>
-                            <td>{this.inprogressTasks(project.projectId)}</td>  
+                            <td>{this.generalTasks(project.projectId)}/{this.inprogressTasks(project.projectId)}</td>  
                             <td>
-                                <Link to={`/api/projects/${project.projectId}`}>
+                                {/* <Link to={`/api/projects/${project.projectId}`}>
                                 <button className="btn btn-info" ><MdPageview />
                                 </button>
+                                </Link> */}
+                                <Link to={`/api/projects/${project.projectId}`}>
+                                <IconContext.Provider value={{ className: "icon-class" }}  >
+                                    <div>
+                                        <FaFileAlt />
+                                    </div>
+                                </IconContext.Provider>
                                 </Link>
                             </td>
                             <td>
-                                <Link to={`/api/projects/update/${project.projectId}`}>
+                                {/* <Link to={`/api/projects/update/${project.projectId}`}>
                                 <button className="btn btn-info"><FaEdit />
                                 </button>
+                                </Link> */}
+                                <Link to={`/api/projects/update/${project.projectId}`}>
+                                <IconContext.Provider value={{ className: "icon-class" }}  >
+                                    <div>
+                                        <FaEdit />
+                                    </div>
+                                </IconContext.Provider>
                                 </Link>
                             </td>
                             <td>
-                                <button className="btn btn-info" 
+                                {/* <button className="btn btn-info" 
                                 onClick={() => this.deleteProject(project.projectId)}><FaTrashAlt />
-                                </button>
+                                </button> */}
+                                <IconContext.Provider value={{ className: "icon-class" }}>
+                                    <div>
+                                        <FaTrashAlt onClick={() => this.deleteProject(project.projectId)} />
+                                    </div>
+                                </IconContext.Provider>
                             </td>
                         </tr>
                         )}

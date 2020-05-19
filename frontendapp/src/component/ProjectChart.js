@@ -7,23 +7,12 @@ class ProjectChart extends Component {
       super(props);
 
       this.state = {
-      
-        series: [44, 55, 41],
+
         options: {
-          chart: {
-            type: 'donut',
-          },
-          responsive: [{
-            breakpoint: 480,
-            options: {
-              chart: {  
-              },
-              legend: {
-                position: 'bottom'
-              }
-            }
-          }]
+          labels: ['New', 'InProgress', 'Completed']
         },
+        series: [3, 3, 0]
+        
       };
     }
 

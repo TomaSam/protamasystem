@@ -5,6 +5,8 @@ import '../App.css';
 import {Link} from 'react-router-dom';
 import { FaTrashAlt } from "react-icons/fa";
 import UpdateTask from './UpdateTask';
+import TaskModal from './TaskModal';
+import { IconContext } from "react-icons";
 
 class Project extends Component {
     constructor(props) {
@@ -127,10 +129,9 @@ class Project extends Component {
 
     render() {
         const {projectId, projectTitle, projectDescription, projectStatus} = this.state.project;
-        // const taskState1 = "INPROGRESS";
         return (
             <div className="content-container">
-                <h3 className="text-center"><code>Project</code> details</h3>
+                <h3 className="text-center">Project details</h3>
                 <div className="card card-margin">    
                     <div className="card-header" ><span className={this.changeBtnColor(projectStatus)}>
                         {projectStatus}</span>
@@ -142,7 +143,7 @@ class Project extends Component {
                 </div>
 
                 <Link to={`/api/projects/${projectId}/tasks/new`}>
-                <button className="btn btn-info btn-lg">Add Task
+                <button className="btn button-color-info btn-lg">Add Task
                 </button>
                 </Link>
 
@@ -160,31 +161,28 @@ class Project extends Component {
                             {this.todoTaskList(this.state.tasks).map(task => 
                             <div className="card border-danger mb-3 card-size" key={task.taskId}>
                                 <div className="card-header bg-transparent border-danger text-danger">
-                                    <b>#{task.taskId}</b>
-                                    <span className={this.changePriorityColor(task.taskPriority)}>{task.taskPriority}</span></div>
+                                    <b>#{task.taskId}</b> {task.taskTitle}
+                                    </div>
                                 <div className="card-body text-danger">
-                                    <h5 className="card-title">{task.taskTitle}</h5>
-                                    <p className="card-text">{task.taskDescription}</p>
+                                <span className={this.changePriorityColor(task.taskPriority)}>{task.taskPriority}</span>
+                                    {/* <h5 className="card-title">{task.taskTitle}</h5>
+                                    <p className="card-text">{task.taskDescription}</p> */}
                                 </div>
                                 <div className="btn-display">
-                                    <button className="btn btn-info btn-size" 
+                                    <button className="btn button-color-info btn-size" 
                                         onClick={() => this.deleteTask(task.taskId)}><FaTrashAlt />
                                     </button>
-                                    {/* <button> */}
-                                        <UpdateTask task={task} refresh={this.refresh} />
-                                    {/* </button> */}
-                                    {/* <form onSubmit={this.updateForm}>
-                                        <div className="form-group"> */}
-                                            {/* <label htmlFor="changeState">Change State</label> */}
-                                            {/* <select className="form-control bg-info" id="state"
-                                            value={this.state.taskState} name="taskState" onChange={this.inputChange}>
-                                                <option selected>Change State</option>
-                                                <option value="INPROGRESS">INPROGRESS</option>
-                                                <option value="DONE">DONE</option>
-                                            </select>
-                                        </div>
-                                    </form> */}
-                                    <button className="btn btn-info mt-3 mb-3 ml-2 mr-2" 
+                                    
+                                    <UpdateTask task={task} refresh={this.refresh} />
+                                    
+                                    <IconContext.Provider value={{ className: "button-color-info" }}  >
+                                    <div>
+                                    <TaskModal task={task} />
+                                    </div>
+                                    </IconContext.Provider>
+                                    
+
+                                    <button className="btn button-color-info mt-3 mb-3 ml-2 mr-2" 
                                     onClick={() => this.updateInprogress(task.taskId)}>
                                         INPROGRESS
                                     </button>

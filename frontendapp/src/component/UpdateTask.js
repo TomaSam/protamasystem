@@ -95,6 +95,7 @@ class UpdateTask extends Component {
                                     <label htmlFor="taskPriority">Task Priority</label>
                                     <select className="form-control" id="priority"
                                     value={this.state.taskPriority} name="taskPriority" onChange={this.inputChange}>
+                                        <option value="" selected disabled hidden>Choose Priority</option>
                                         <option value="LOW">LOW</option>
                                         <option value="MEDIUM">MEDIUM</option>
                                         <option value="HIGHT">HIGHT</option>
@@ -105,6 +106,7 @@ class UpdateTask extends Component {
                                     <label htmlFor="taskState">Task State</label>
                                     <select className="form-control" id="state"
                                     value={this.state.taskState} name="taskState" onChange={this.inputChange}>
+                                        <option value="" selected disabled hidden>Choose State</option>
                                         <option value="TODO">TODO</option>
                                         <option value="INPROGRESS">INPROGRESS</option>
                                         <option value="DONE">DONE</option>

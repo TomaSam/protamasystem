@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import ReactApexChart from 'react-apexcharts';
-import Service from './Service';
 
 
 class TaskChart extends Component {
@@ -8,42 +7,14 @@ class TaskChart extends Component {
       super(props);
 
       this.state = {
-        series: [],
         options: {
-          chart: {
-            type: 'donut',
-          },
-          responsive: [{
-            breakpoint: 480,
-            options: {
-              chart: {
-              },
-              legend: {
-                position: 'bottom'
-              }
-            }
-          }]
+          labels: ['Todo', 'InProgress', 'Done']
         },
+        series: [9, 6, 5]
       };
-      this.taskChart = this.taskChart.bind(this);
     }
 
-    taskChart(event) {
-      this.setState({
-        series: [ ...this.state.series, event.target.value]
-      })
-    }
-
-    // componentDidMount() {
-    //   Service.getTasksTodo()
-    //   .then(result => {
-    //     console.log(result);
-    //     const todo = result.data;
-    //     todosize = todo.length;
-    //     this.setState({todosize});
-    //   })
-    // }
-
+   
     render() {
         return (
             <div id="chart">

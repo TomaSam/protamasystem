@@ -48,10 +48,10 @@ class ProjectSearch extends Component {
         <div>
             <form onSubmit={this.submitForm} className="form-inline my-2 my-lg-0 float-right">
                 <input name="searchProject" className="form-control mr-sm-2" type="search" 
-                placeholder="Enter project title" aria-label="Search"
+                placeholder="Search for..." aria-label="Search"
                 onChange={this.inputChange} />
-                <button className="btn btn-outline-info my-2 my-sm-0 float-right" type="reset"
-                onClick={() => this.refreshTasks(this.state.projects)} >Refresh</button>                 
+                <button className="btn button-color-info my-2 my-sm-0 float-right" type="reset"
+                onClick={() => this.refreshTasks(this.state.projects)} >Back to List</button>                 
             </form>
         </div>
         )
