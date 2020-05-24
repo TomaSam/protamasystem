@@ -81,6 +81,12 @@ public class ProjectController {
 		}
 		return new ResponseEntity<List<Project>>(searchProjects, HttpStatus.OK);
 	}
+	
+	@PatchMapping(value="/{projectId}/completed")
+	public ResponseEntity<Project> updateProjectCompleted(@PathVariable("projectId") Long projectId) {
+		Project newProject = projectService.updateProjectCompleted(projectId);
+		return new ResponseEntity<>(newProject, HttpStatus.OK);
+	}
 
 /*	Tasks */
 	

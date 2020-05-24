@@ -12,6 +12,7 @@ public interface ProjectService {
 	void deleteProject(Long id);
 	Project findById(Long id);
 	List<Project> searchProject(String projectTitle);
+	Project updateProjectCompleted(Long projectId);
 	
 	
 

@@ -1,7 +1,7 @@
 package lt.vtmc.ProTaMa.model;
 
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.time.format.DateTimeFormatter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,9 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -95,11 +92,16 @@ public class Task {
 	}
 
 	public LocalDateTime getCreated() {
+		
 		return created;
 	}
 
 	public void setCreated(LocalDateTime created) {
-		this.created = created;
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		String text = created.format(formatter);
+		LocalDateTime parseDate = LocalDateTime.parse(text, formatter);
+		
+		this.created = parseDate;
 	}
 
 	public LocalDateTime getUpdated() {

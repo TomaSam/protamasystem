@@ -7,7 +7,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import lt.vtmc.ProTaMa.model.Project;
 import lt.vtmc.ProTaMa.model.Task;
 import lt.vtmc.ProTaMa.model.TaskState;
 import lt.vtmc.ProTaMa.repository.ProjectRepository;
@@ -22,18 +21,6 @@ public class TaskServiceImp implements TaskService {
 	@Autowired
 	ProjectRepository projectRepository;
 
-
-//	public List<Task> getTaskByProjectId(Long projectId) {
-//		List<Task> result = new ArrayList<>();
-//		for(Task task : taskRepository.findAll()) {
-//			if (task.getProject().getProjectId()==projectId) {
-//				result.add(task);
-//				return result;
-//			}
-//		}
-//		return null;
-//	}
-
 	@Override
 	public List<Task> getAllTasksByProjectId(Long projectId) {
 		List<Task> result = new ArrayList<>();
@@ -47,12 +34,6 @@ public class TaskServiceImp implements TaskService {
 
 	@Override
 	public Task createTask(Task task, Long projectId) {
-//		Project updatedProject = projectRepository.findById(projectId).get();
-//		Task addTask = new Task(task.getTaskTitle(), task.getTaskDescription(), task.getTaskPriority(), task.getTaskState(), updatedProject);
-//		taskRepository.save(addTask);
-//		updatedProject.addTask(task);
-//		projectRepository.save(updatedProject);
-//		return addTask;
 		projectRepository.findById(projectId).get().addTask(task);
 		taskRepository.save(task);
 		return task;
@@ -66,39 +47,15 @@ public class TaskServiceImp implements TaskService {
 		oldTask.setTaskPriority(task.getTaskPriority());
 		oldTask.setTaskState(task.getTaskState());
 		return taskRepository.save(oldTask);
-//		Optional<Task> originalTask = taskRepository.findById(taskId);
-//		return taskRepository.save(task);
 	}
 
 	@Override
 	public void deleteTask(Long taskId) {
-//		Project project = taskRepository.findById(id).orElse(null).getProject();
-//		Task task = taskRepository.findById(id).get();
-//		task.setProject(null);
-//		taskRepository.save(task);
-//		project.getTasks().removeIf(taske -> taske.getTaskId().equals(id));
-//		projectRepository.save(project);
-//		List<Task> list = new ArrayList<>();
-//		for (Task task : list) { 
-//			if (task.getProject().getProjectId() == projectId) {
-//				list.add(task);
-//			}
-//		}
-//		for (Task deletedTask : list) {
-//			if (deletedTask.getTaskId() == id) {
-//				taskRepository.delete(deletedTask);
-//			}
-//		}
 		taskRepository.deleteById(taskId);
 	}
 
 	@Override
 	public Task findById(Long id) {
-//		for (Task task : getAllTasks()) {
-//			if (task.getTaskId().equals(id))
-//				return task;
-//		}
-//		return null;
 		return taskRepository.findById(id).orElse(null);
 	}
 
@@ -121,14 +78,6 @@ public class TaskServiceImp implements TaskService {
 	public List<Task> getTasksDONE() {
 		return taskRepository.findByTaskState(TaskState.DONE);
 	}
-
-//	@Override
-//	public Task updateTaskState(TaskState taskState, Long taskId) {
-//		Optional<Task> originalTask = taskRepository.findById(taskId);
-//		Task task = originalTask.get();
-//		task.setTaskState(taskState);
-//		return taskRepository.save(task);
-//	}
 
 	@Override
 	public Task updateTaskINPROGRESS(Long taskId) {
@@ -171,27 +120,6 @@ public class TaskServiceImp implements TaskService {
 		return searchTask;
 	}
 
-//	@Override
-//	public List<Task> searchTaskByTitle(String title) {
-//		List<Task> searchTask = new ArrayList<>();
-//		for (Task task : taskRepository.findAll()) {
-//			if (task.getTaskTitle().toLowerCase().contains(title)) {
-//				searchTask.add(task);
-//			}
-//		}
-//			return searchTask;
-//	}
-//
-//	@Override
-//	public List<Task> searchtTaskById(Long taskId) {
-//		List<Task> search = new ArrayList<>();
-//		for (Task task : taskRepository.findAll()) {
-//			if (task.getTaskId() == taskId) {
-//				search.add(task);
-//			}
-//		}
-//		return search;
-//	}
 
 	
 	
