@@ -42,8 +42,8 @@ class TaskSearch extends Component {
                 <input name="input" className="form-control mr-sm-2" type="search" 
                 placeholder="Search for..." aria-label="Search"
                 onChange={this.inputChange} />
-                <button className="btn btn-outline-info my-2 my-sm-0 float-right" type="reset"
-                onClick={() => this.refreshTasks(this.state.tasks)} >Back to list</button>                
+                <button className="btn button-color-info my-2 my-sm-0 float-right" type="reset"
+                onClick={() => this.refreshTasks(this.state.tasks)} >Back to List</button>                
             </form>
             
         </div>

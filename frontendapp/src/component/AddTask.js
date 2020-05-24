@@ -7,8 +7,11 @@ function validate(taskTitle, taskDescription, taskPriority) {
     if (taskTitle.length === 0) {
         errors.push("Fill out the Task title.");
     }
-    if (taskTitle.length > 0 && taskTitle.length < 5 || taskTitle.length > 255) {
-        errors.push("Length of Task title should be from 5 to 255 characters.");
+    if (taskTitle.length > 0 && taskTitle.length < 5) {
+        errors.push("Length of Task title should be from 5 to 75 characters.");
+    }
+    if (taskTitle.length > 75) {
+        errors.push("Length of Task title should be less than 75 characters.");
     }
     if (taskDescription.length === 0) {
         errors.push("Fill out the Task description.");

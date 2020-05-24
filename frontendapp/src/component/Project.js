@@ -3,10 +3,7 @@ import Service from './Service';
 // import axios from 'axios';
 import '../App.css';
 import {Link} from 'react-router-dom';
-import { FaTrashAlt } from "react-icons/fa";
-import UpdateTask from './UpdateTask';
 import TaskModal from './TaskModal';
-import { IconContext } from "react-icons";
 
 class Project extends Component {
     constructor(props) {
@@ -129,7 +126,7 @@ class Project extends Component {
         const {projectId, projectTitle, projectDescription, projectStatus} = this.state.project;
         return (
             <div className="content-container">
-                <h3 className="text-center">Project details</h3>
+                <h3 className="text-center header">Project details</h3>
                 <div className="card card-margin">    
                     <div className="card-header" >
                         <span className={this.changeBtnColor(projectStatus)}>{projectStatus}</span>
@@ -147,41 +144,56 @@ class Project extends Component {
                 </Link>
 
                     {/* Tasks List by status  */}
-                    <h4 className="text-center mt-3 mb-3">Tasks</h4>
-                    <div>{this.state.tasks.length > 0 && (
+                    <h4 className="text-center mt-3 mb-3 header">Tasks</h4>
+                    {/* <div>{this.state.tasks.length > 0 && ( */}
                         <div className="row">
                             {/* TO DO List */}
                             <div className="col-4">
-                                <h5 className="text-center">TODO</h5>
-                                {this.todoTaskList(this.state.tasks).map(task => 
-                                    <div className="task-button btn" key={task.taskId}>
-                                        <TaskModal refresh={this.refresh} task={task}/> 
+                                <div>{this.todoTaskList(this.state.tasks).length > 0 && (
+                                    <div>
+                                        <h5 className="text-center header">TODO</h5>
+                                        {this.todoTaskList(this.state.tasks).map(task => 
+                                            <div key={task.taskId}>
+                                                <TaskModal refresh={this.refresh} task={task}/> 
+                                            </div>
+                                        )}      
                                     </div>
-                                )}      
+                                )}
+                                </div>
                             </div>
 
                             {/* IN PROGRESS list */}
                             <div className="col-4">
-                                <h5 className="text-center">INPROGRESS</h5>
-                                    {this.inprogressTaskList(this.state.tasks).map(task => 
-                                        <div className="task-button btn" key={task.taskId}>
-                                            <TaskModal task={task}/> 
-                                        </div>
-                                    )}
+                                <div>{this.inprogressTaskList(this.state.tasks).length > 0 && (
+                                    <div>
+                                        <h5 className="text-center header">INPROGRESS</h5>
+                                            {this.inprogressTaskList(this.state.tasks).map(task => 
+                                                <div key={task.taskId}>
+                                                    <TaskModal refresh={this.refresh} task={task}/> 
+                                                </div>
+                                            )}
+                                    </div>
+                                )}
+                                </div>
                             </div>
 
                             {/* DONE List */}
                             <div className="col-4">
-                                <h5 className="text-center">DONE</h5> 
-                                {this.doneTaskList(this.state.tasks).map(task => 
-                                    <div className="task-button btn" key={task.taskId}>
-                                       <TaskModal task={task}/>  
+                                <div>{this.doneTaskList(this.state.tasks).length > 0 && (
+                                    <div>
+                                        <h5 className="text-center header">DONE</h5> 
+                                            {this.doneTaskList(this.state.tasks).map(task => 
+                                                <div key={task.taskId}>
+                                                    <TaskModal refresh={this.refresh} task={task}/>  
+                                                </div>
+                                            )}
                                     </div>
                                 )}
+                                </div>
                             </div>
                         </div>
-                    )} 
-                </div>   
+                     {/* )} 
+                 </div>    */}
             </div>
         )
     }

@@ -81,11 +81,11 @@ body {
   margin-left: 40px;
 }
 
-.sidebar-navigation .header {
+/* .sidebar-navigation .header {
   font-size: 15px;
-  /* text-transform: uppercase; */
+  text-transform: uppercase;
   padding: 10px 15px 10px 30px;
-}
+}  */
 
 .content-container {
   padding-top: 20px;
@@ -147,7 +147,14 @@ body {
   width: 300px;
   margin-bottom: 20px;
   background-color: #5bc0de;
-  text-align: center;
+  /* text-align: center;
+  vertical-align: baseline; */
+  /* display: table-cell; */
+  align-items: center;
+}
+
+.space {
+  margin-bottom: 20px;
 }
 
 .error-css {
@@ -164,4 +171,8 @@ body {
 
 .navigation-style:hover {
   text-decoration: none;  
+}
+
+.header {
+  color: #374785;
 }

@@ -2,18 +2,21 @@ import React, { Component } from 'react';
 import '../App.css';
 import Service from './Service';
 
-function validate(taskTitle, taskDescription, taskPriority) {
+function validate(projectTitle, projectDescription, projectPriority) {
     const errors = [];
-    if (taskTitle.length === 0) {
+    if (projectTitle.length === 0) {
         errors.push("Fill out the Project title");
     }
-    if (taskTitle.length > 0 && taskTitle.length < 5 || taskTitle.length > 255) {
-        errors.push("Length of Project title should be from 5 to 255 characters.");
+    if (projectTitle.length > 0 && projectTitle.length < 5) {
+        errors.push("Length of Project title should be from 5 to 100 characters.");
     }
-    if (taskDescription.length === 0) {
+    if (projectTitle.length > 100) {
+        errors.push("Length of Project title should be less than 100 characters.");
+    }
+    if (projectDescription.length === 0) {
         errors.push("Fill out the Project description");
     }
-    if (taskDescription.length > 500) {
+    if (projectDescription.length > 500) {
         errors.push("Project description length should be less than 500 characters");
     }
     return errors;

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Service from './Service';
 import '../App.css';
 import { FaTrashAlt } from "react-icons/fa";
-import UpdateTask from './UpdateTask';
+import UpdateTaskList from './UpdateTaskList';
 import TaskSearch from './TaskSearch';
 
 
@@ -65,7 +65,7 @@ class TasksList extends Component {
     // }
     
     todoTaskList = (tasks) => {
-        console.log(tasks)
+        // console.log(tasks)
         return tasks.filter(task => task.taskState === "TODO");
     }
 
@@ -114,9 +114,9 @@ class TasksList extends Component {
     render() {
         return (
             <div className="content-container">
-                <TaskSearch search={this.search} />
+                <TaskSearch search={this.search}  />
                 
-                <h5 className="text-center mt-3 mb-3">Tasks</h5>
+                <h3 className="text-center header mt-3 mb-3">Tasks</h3>
                     <div className="card-deck">
                         {/* TO DO List */}
                         <div className="card">
@@ -141,11 +141,11 @@ class TasksList extends Component {
                                             onClick={() => this.deleteTask(task.taskId)}><FaTrashAlt />
                                         </button>
                                        
-                                        <UpdateTask task={task} refresh={this.refresh}/>
-                                    <button className="btn btn-info mt-3 mb-3 ml-2 mr-2" 
-                                        onClick={() => this.updateInprogress(task.taskId)}>
-                                        INPROGRESS
-                                    </button>
+                                        <UpdateTaskList task={task} refresh={this.refresh}/>
+                                        <button className="btn btn-info mt-3 mb-3 ml-2 mr-2" 
+                                            onClick={() => this.updateInprogress(task.taskId)}>
+                                            INPROGRESS
+                                        </button>
                                     </div>
                                 </div>
                                 )}
@@ -174,7 +174,7 @@ class TasksList extends Component {
                                             <button className="btn btn-info btn-size" 
                                                 onClick={() => this.deleteTask(task.taskId)}><FaTrashAlt />
                                             </button>
-                                            <UpdateTask task={task} />
+                                            <UpdateTaskList task={task} refresh={this.refresh} />
                                             <button className="btn btn-info mt-3 mb-3 ml-2 mr-2" 
                                             onClick={() => this.updateDone(task.taskId)}>
                                                 DONE
@@ -206,7 +206,7 @@ class TasksList extends Component {
                                         <button className="btn btn-info btn-size" 
                                             onClick={() => this.deleteTask(task.taskId)}><FaTrashAlt />
                                         </button>
-                                        <UpdateTask task={task} />
+                                        <UpdateTaskList task={task} refresh={this.refresh} />
                                         <button className="btn btn-info mt-3 mb-3 ml-2 mr-2" 
                                         onClick={() => this.updateTodo(task.taskId)}>
                                             TODO
