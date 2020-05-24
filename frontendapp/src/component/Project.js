@@ -121,6 +121,11 @@ class Project extends Component {
             .then(response => {this.refresh()})
     }
 
+    updateCompleted(projectId) {
+        Service.updateProjectCompleted(projectId)
+            .then(response => {this.refresh()})
+    }
+
 
     render() {
         const {projectId, projectTitle, projectDescription, projectStatus} = this.state.project;
@@ -142,6 +147,14 @@ class Project extends Component {
                         Add Task
                     </button>
                 </Link>
+                <Link to={`/api/projects/update/${projectId}`}>
+                    <button className="btn button-color btn-lg">
+                        Update Project
+                    </button>
+                </Link>
+                <button className="btn button-color btn-lg" onClick={() => this.updateCompleted(projectId)}>
+                    Mark as Completed
+                </button>
 
                     {/* Tasks List by status  */}
                     <h4 className="text-center mt-3 mb-3 header">Tasks</h4>

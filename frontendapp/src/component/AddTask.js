@@ -68,7 +68,7 @@ class AddTask extends Component {
         const {errors} = this.state;
         return (
             <div className="content-container">
-                <h3 className="text-center">Add new Task</h3>
+                <h3 className="text-center header">Add new Task</h3>
                     <form onSubmit={this.submitForm}>
                         {errors.map(error => (
                             <p className="error-css" key={error}>Error: {error}</p>
@@ -95,7 +95,7 @@ class AddTask extends Component {
                                 <option value="HIGHT">HIGHT</option>
                             </select>
                         </div>
-                        <button type="submit" className="btn btn-primary">Submit</button>
+                        <button type="submit" className="btn button-color-info">Submit</button>
                     </form>
             </div>
         );

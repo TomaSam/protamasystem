@@ -44,7 +44,7 @@ class UpdateProject extends Component {
         // const {projectId, projectTitle, projectDescription, projectStatus} = this.state
         return (
             <div className="content-container">
-                <h3 className="text-center">Update Project</h3>
+                <h3 className="text-center header">Update Project</h3>
                     <form onSubmit={this.updateForm}>
                         <div className="form-group">
                             <label htmlFor="projectTitle">Project Title</label>

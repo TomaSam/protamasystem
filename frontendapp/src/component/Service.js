@@ -16,6 +16,9 @@ class Service {
     createProject(project) {
         return axios.post(`http://localhost:8080/api/projects`, project);
     }
+    updateProjectCompleted(projectId) {
+        return axios.patch(`http://localhost:8080/api/projects/${projectId}/completed`)
+    }
     // Task axios 
     getTasksByProjectId(projectId) {
         return axios.get(`http://localhost:8080/api/projects/${projectId}/tasks`);

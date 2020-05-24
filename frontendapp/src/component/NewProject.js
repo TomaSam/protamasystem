@@ -60,7 +60,7 @@ class NewProject extends Component {
         const {errors} = this.state;
         return (
             <div className="content-container">
-                <h3 className="text-center">Create new Project</h3>
+                <h3 className="text-center header">Create new Project</h3>
                     <form onSubmit={this.submitForm}>
                         {errors.map(error => (
                             <p className="error-css" key={error}>Error: {error}</p>

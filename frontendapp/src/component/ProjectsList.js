@@ -59,10 +59,13 @@ class ProjectsList extends Component {
         return this.state.tasks.filter(task => task.project.projectId === id).length;
         // console.log(this.state.tasks.filter(task => task.project.projectId == id).length);
     }
-
     inprogressTasks = (id) => {
         return this.state.tasks.filter(task => task.project.projectId === id)
         .filter(t => t.taskState === "INPROGRESS").length;
+    }
+    doneTasks = (id) => {
+        return this.state.tasks.filter(task => task.project.projectId === id)
+        .filter(t => t.taskState === "DONE").length;
     }
 
     search = (projects) => {
@@ -87,7 +90,7 @@ class ProjectsList extends Component {
                     </div>
                 </IconContext.Provider>
                 
-                <h3 className="text-center pb-3">List of Projects</h3>
+                <h3 className="text-center header mt-3 mb-3">List of Projects</h3>
                 </div>
                 <div>
                 {this.state.message && <h4>test{this.state.message}</h4>}
@@ -112,7 +115,9 @@ class ProjectsList extends Component {
                             <td>
                                 <span className={this.changeBtnColor(project.projectStatus)}>
                                 {project.projectStatus}</span></td>
-                            <td>{this.generalTasks(project.projectId)}/{this.inprogressTasks(project.projectId)}</td>  
+                            <td>{this.generalTasks(project.projectId)}/
+                            {this.inprogressTasks(project.projectId)}/
+                            {this.doneTasks(project.projectId)}</td>  
                             <td>
                                 {/* <Link to={`/api/projects/${project.projectId}`}>
                                 <button className="btn btn-info" ><MdPageview />
