@@ -10,19 +10,6 @@ class TaskSearch extends Component {
             results: []
         }
     }
-
-    // getResult = () => {
-    //     Service.getTaskByTaskId(this.state.searchTask)
-    //         .then((res) => {
-    //             const data = res.data;
-    //             console.log(data);
-                // this.setState({
-                //     results: data
-                // })
-               
-    //             this.props.searchTaskById(data);
-    //         })     
-    // }    
     
     inputChange = (e) => {
         this.setState({
@@ -56,7 +43,7 @@ class TaskSearch extends Component {
                 placeholder="Search for..." aria-label="Search"
                 onChange={this.inputChange} />
                 <button className="btn btn-outline-info my-2 my-sm-0 float-right" type="reset"
-                onClick={() => this.refreshTasks(this.state.tasks)} >Refresh</button>                
+                onClick={() => this.refreshTasks(this.state.tasks)} >Back to list</button>                
             </form>
             
         </div>

@@ -55,10 +55,6 @@ class ProjectsList extends Component {
             .then(respose => {this.getProjects()})
     }
 
-    // editProject(projectId) {
-    //     this.props.history.push(`/api/projects/update/${projectId}`);
-    // }
-
     generalTasks = (id) => {
         return this.state.tasks.filter(task => task.project.projectId === id).length;
         // console.log(this.state.tasks.filter(task => task.project.projectId == id).length);
@@ -71,15 +67,12 @@ class ProjectsList extends Component {
 
     search = (projects) => {
         console.log(projects);
-        if (projects.length >= 0) {
-            this.setState({projects});
-        }
-        else {
-            this.setState({message: 'Project NOT FOUND'})
-        }
-        
+        const sortedprojects = projects.sort(function(a, b) {
+            return b.projectId - a.projectId;
+        });
+        console.log(sortedprojects);
+        this.setState({sortedprojects});
     }
-    
 
     render() {
         return (

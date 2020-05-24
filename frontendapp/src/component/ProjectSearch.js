@@ -8,26 +8,10 @@ class ProjectSearch extends Component {
 
         this.state = {
             searchProject: '',
-            results: [],
-            message: null
+            results: []
         }
     }
 
-    getResult = () => {
-        Service.searchProject(this.state.searchProject)
-            .then((res) => {
-                const data = res.data;
-                console.log(data);
-                
-                this.setState({
-                    results: data
-                })
-                this.props.search(data);
-                
-            })
-            
-    }    
-    
     inputChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value
@@ -36,7 +20,17 @@ class ProjectSearch extends Component {
 
     submitForm = (event) => {
         event.preventDefault();
-        this.getResult();
+        Service.searchProject(this.state.searchProject)
+            .then((res) => {
+                const data = res.data;
+                console.log(data);
+                
+                this.setState({
+                    results: data
+                })
+                console.log(data);
+                this.props.search(data);     
+            })      
     }
 
     refreshTasks = () => {

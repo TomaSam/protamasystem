@@ -20,8 +20,6 @@ class Project extends Component {
     }
 
     componentDidMount() {
-        // this.getProjectById();
-        // axios.get(`http://localhost:8080/api/projects/${this.props.match.params.projectId}`)
         Service.getProject(this.props.match.params.projectId)
         .then((result) => {
             const project = result.data;
@@ -133,8 +131,8 @@ class Project extends Component {
             <div className="content-container">
                 <h3 className="text-center">Project details</h3>
                 <div className="card card-margin">    
-                    <div className="card-header" ><span className={this.changeBtnColor(projectStatus)}>
-                        {projectStatus}</span>
+                    <div className="card-header" >
+                        <span className={this.changeBtnColor(projectStatus)}>{projectStatus}</span>
                     </div>
                     <div className="card-body">
                         <h5 className="card-title">{projectTitle}</h5>
@@ -143,128 +141,47 @@ class Project extends Component {
                 </div>
 
                 <Link to={`/api/projects/${projectId}/tasks/new`}>
-                <button className="btn button-color-info btn-lg">Add Task
-                </button>
+                    <button className="btn button-color btn-lg">
+                        Add Task
+                    </button>
                 </Link>
 
-                {/* Tasks List by status  */}
-                <h5 className="text-center mt-3 mb-3">Tasks</h5>
-                <div>{this.state.tasks.length > 0 && (
-                <div className="card-deck">
-
-                    {/* TO DO List */}
-                    <div className="card">
-                        <div className="card-header bg-danger text-center">
-                            TODO
-                        </div>
-                        <div className="card-body">
-                            {this.todoTaskList(this.state.tasks).map(task => 
-                            <div className="card border-danger mb-3 card-size" key={task.taskId}>
-                                <div className="card-header bg-transparent border-danger text-danger">
-                                    <b>#{task.taskId}</b> {task.taskTitle}
+                    {/* Tasks List by status  */}
+                    <h4 className="text-center mt-3 mb-3">Tasks</h4>
+                    <div>{this.state.tasks.length > 0 && (
+                        <div className="row">
+                            {/* TO DO List */}
+                            <div className="col-4">
+                                <h5 className="text-center">TODO</h5>
+                                {this.todoTaskList(this.state.tasks).map(task => 
+                                    <div className="task-button btn" key={task.taskId}>
+                                        <TaskModal refresh={this.refresh} task={task}/> 
                                     </div>
-                                <div className="card-body text-danger">
-                                <span className={this.changePriorityColor(task.taskPriority)}>{task.taskPriority}</span>
-                                    {/* <h5 className="card-title">{task.taskTitle}</h5>
-                                    <p className="card-text">{task.taskDescription}</p> */}
-                                </div>
-                                <div className="btn-display">
-                                    <button className="btn button-color-info btn-size" 
-                                        onClick={() => this.deleteTask(task.taskId)}><FaTrashAlt />
-                                    </button>
-                                    
-                                    <UpdateTask task={task} refresh={this.refresh} />
-                                    
-                                    <IconContext.Provider value={{ className: "button-color-info" }}  >
-                                    <div>
-                                    <TaskModal task={task} />
+                                )}      
+                            </div>
+
+                            {/* IN PROGRESS list */}
+                            <div className="col-4">
+                                <h5 className="text-center">INPROGRESS</h5>
+                                    {this.inprogressTaskList(this.state.tasks).map(task => 
+                                        <div className="task-button btn" key={task.taskId}>
+                                            <TaskModal task={task}/> 
+                                        </div>
+                                    )}
+                            </div>
+
+                            {/* DONE List */}
+                            <div className="col-4">
+                                <h5 className="text-center">DONE</h5> 
+                                {this.doneTaskList(this.state.tasks).map(task => 
+                                    <div className="task-button btn" key={task.taskId}>
+                                       <TaskModal task={task}/>  
                                     </div>
-                                    </IconContext.Provider>
-                                    
-
-                                    <button className="btn button-color-info mt-3 mb-3 ml-2 mr-2" 
-                                    onClick={() => this.updateInprogress(task.taskId)}>
-                                        INPROGRESS
-                                    </button>
-                                </div>
+                                )}
                             </div>
-                            )}
                         </div>
-                            
-                    </div>
-
-                    {/* IN PROGRESS list */}
-                    <div className="card">
-                        <div className="card-header bg-warning text-center">
-                            INPROGRESS
-                        </div>
-                        <div className="card-body">
-                            {this.inprogressTaskList(this.state.tasks).map(task => 
-                            <div className="card border-warning mb-3 card-size" key={task.taskId}>
-                                <div className="card-header bg-transparent border-warning text-warning">
-                                    <b>#{task.taskId}</b>
-                                    <span className={this.changePriorityColor(task.taskPriority)}>{task.taskPriority}</span></div>
-                                    <div className="card-body text-warning">
-                                        <h5 className="card-title">{task.taskTitle}</h5>
-                                        <p className="card-text">{task.taskDescription}</p>
-                                    </div>
-                                    <div className="btn-display">
-                                <button className="btn btn-info btn-size" 
-                                    onClick={() => this.deleteTask(task.taskId)}><FaTrashAlt />
-                                </button>
-
-                                    <UpdateTask task={task} refresh={this.refresh} />
-                                {/* <button className="btn btn-info mt-3 mb-3 ml-2 mr-2" 
-                                    onClick={() => this.updateInprogress(taskState1, task.taskId)}>
-                                        INPROGRESS
-                                </button> */}
-                                <button className="btn btn-info mt-3 mb-3 ml-2 mr-2" 
-                                    onClick={() => this.updateDone(task.taskId)}>
-                                        DONE
-                                </button>
-                                </div>  
-                            </div>
-                            )}
-                        </div>
-                    </div>
-                    {/* DONE List */}
-                    <div className="card">
-                        <div className="card-header bg-success text-center">
-                            DONE
-                        </div>
-                        <div className="card-body">
-                            {this.doneTaskList(this.state.tasks).map(task => 
-                            <div className="card border-success mb-3 card-size" key={task.taskId}>
-                                <div className="card-header bg-transparent border-success text-success">
-                                    <b>#{task.taskId}</b>
-                                    <span className={this.changePriorityColor(task.taskPriority)}>{task.taskPriority}</span></div>
-                                <div className="card-body text-success">
-                                    <h5 className="card-title">{task.taskTitle}</h5>
-                                    <p className="card-text">{task.taskDescription}</p>
-                                </div>
-                                <div className="btn-display">
-                                    <button className="btn btn-info btn-size" 
-                                        onClick={() => this.deleteTask(task.taskId)}><FaTrashAlt />
-                                    </button>
-                              
-                                    <UpdateTask task={task} refresh={this.refresh} />
-
-                                    {/* <button className="btn btn-info mt-3 mb-3 ml-2 mr-2" 
-                                        onClick={() => this.updateInprogress(taskState1, task.taskId)}>
-                                        INPROGRESS
-                                    </button> */}
-                                    <button className="btn btn-info mt-3 mb-3 ml-2 mr-2" 
-                                    onClick={() => this.updateTodo(task.taskId)}>
-                                        TODO
-                                    </button>
-                                </div>
-                            </div>
-                            )}
-                        </div>
-                    </div>
-                </div>
-                )}
-                </div>    
+                    )} 
+                </div>   
             </div>
         )
     }

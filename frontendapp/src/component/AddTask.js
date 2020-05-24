@@ -5,13 +5,19 @@ import Service from './Service';
 function validate(taskTitle, taskDescription, taskPriority) {
     const errors = [];
     if (taskTitle.length === 0) {
-        errors.push("Task title can't be empty");
+        errors.push("Fill out the Task title.");
+    }
+    if (taskTitle.length > 0 && taskTitle.length < 5 || taskTitle.length > 255) {
+        errors.push("Length of Task title should be from 5 to 255 characters.");
     }
     if (taskDescription.length === 0) {
-        errors.push("Task description can't be empty");
+        errors.push("Fill out the Task description.");
+    }
+    if (taskDescription.length > 500) {
+        errors.push("Task description length should be less than 500 characters");
     }
     if (taskPriority.length === 0) {
-        errors.push("Task priority can't be empty");
+        errors.push("Choose Task priority");
     }
     return errors;
 }
@@ -62,7 +68,7 @@ class AddTask extends Component {
                 <h3 className="text-center">Add new Task</h3>
                     <form onSubmit={this.submitForm}>
                         {errors.map(error => (
-                            <p key={error}>Error: {error}</p>
+                            <p className="error-css" key={error}>Error: {error}</p>
                         ))}
                         <div className="form-group">
                             <label htmlFor="taskTitle">Task Title</label>
@@ -71,8 +77,8 @@ class AddTask extends Component {
                         </div>
                         <div className="form-group">
                             <label htmlFor="taskDescription">Task Description</label>
-                            <textarea className="form-control" id="description" rows="3" 
-                            placeholder="As a [type of user], I want [an action] so that [a benefit/a value]"
+                            <textarea className="form-control" id="description" rows="4" 
+                            // placeholder="As a [type of user], I want [an action] so that [a benefit/a value]"
                             value={this.state.taskDescription} name="taskDescription" 
                             onChange={this.inputChange}></textarea>
                         </div>

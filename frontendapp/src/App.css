@@ -62,6 +62,7 @@ body {
   padding: 10px 15px 10px 30px;
   font-size: 30px;
   color: #fff;
+  font-weight: bold;
 }
 
 .sidebar-navigation {
@@ -81,8 +82,8 @@ body {
 }
 
 .sidebar-navigation .header {
-  font-size: 12px;
-  text-transform: uppercase;
+  font-size: 15px;
+  /* text-transform: uppercase; */
   padding: 10px 15px 10px 30px;
 }
 
@@ -133,4 +134,34 @@ body {
 .button-color-info {
   background-color: #5bc0de;
   color: whitesmoke;
+}
+
+.button-color {
+  background-color: #f7f7f7;
+  color: #282c34;
+  border-color: #dfdfdf;
+}
+
+.task-button {
+  height: 70px;
+  width: 300px;
+  margin-bottom: 20px;
+  background-color: #5bc0de;
+  text-align: center;
+}
+
+.error-css {
+  color: firebrick;
+  font-size: 1rem;
+  font-style: italic;
+}
+
+.navigation-style {
+  font-size: 1.1rem;
+  color: #374785;
+  font-weight: bold;
+}
+
+.navigation-style:hover {
+  text-decoration: none;  
 }
