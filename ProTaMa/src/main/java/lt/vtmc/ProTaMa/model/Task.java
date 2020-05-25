@@ -14,6 +14,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name="task")
 public class Task {
@@ -33,9 +35,11 @@ public class Task {
 	
 	@Column(name="created", updatable = false)
 	@CreationTimestamp
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime created;
 	@Column(name="updated")
 	@UpdateTimestamp
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime updated;
 	
 	@ManyToOne
