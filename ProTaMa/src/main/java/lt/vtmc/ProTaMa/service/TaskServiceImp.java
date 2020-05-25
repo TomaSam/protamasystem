@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import lt.vtmc.ProTaMa.model.ProjectStatus;
 import lt.vtmc.ProTaMa.model.Task;
 import lt.vtmc.ProTaMa.model.TaskState;
 import lt.vtmc.ProTaMa.repository.ProjectRepository;
@@ -34,8 +35,15 @@ public class TaskServiceImp implements TaskService {
 
 	@Override
 	public Task createTask(Task task, Long projectId) {
-		projectRepository.findById(projectId).get().addTask(task);
-		taskRepository.save(task);
+		if (projectRepository.findById(projectId).get().getTasks().size() == 0) {
+			projectRepository.findById(projectId).get().setProjectStatus(ProjectStatus.INPROGRESS);
+			projectRepository.findById(projectId).get().addTask(task);
+			taskRepository.save(task);
+		}
+		else {
+			projectRepository.findById(projectId).get().addTask(task);
+			taskRepository.save(task);
+		}
 		return task;
 	}
 

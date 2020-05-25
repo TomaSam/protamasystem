@@ -1,7 +1,6 @@
 package lt.vtmc.ProTaMa.model;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -96,16 +95,11 @@ public class Task {
 	}
 
 	public LocalDateTime getCreated() {
-		
 		return created;
 	}
 
 	public void setCreated(LocalDateTime created) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		String text = created.format(formatter);
-		LocalDateTime parseDate = LocalDateTime.parse(text, formatter);
-		
-		this.created = parseDate;
+		this.created = created;
 	}
 
 	public LocalDateTime getUpdated() {
