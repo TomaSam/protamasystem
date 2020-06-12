@@ -57,4 +57,7 @@ buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
 .flattened-pom.xml
+.mvn/wrapper
+mvnw
+mvnw.cmd
 
