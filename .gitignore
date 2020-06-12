@@ -21,6 +21,8 @@ application.properties
 # sbteclipse plugin
 .target
 
+.gitignore
+
 # STS (Spring Tool Suite)
 .springBeans
 
