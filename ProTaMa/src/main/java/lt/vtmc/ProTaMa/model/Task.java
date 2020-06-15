@@ -14,6 +14,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.opencsv.bean.CsvBindByPosition;
 
 @Entity
 @Table(name="task")
@@ -21,21 +22,27 @@ public class Task {
 	
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	@CsvBindByPosition(position = 0)
 	@Column(name="taskId")
 	private Long taskId;
+	@CsvBindByPosition(position = 1)
 	@Column(name="taskTitle")
 	private String taskTitle;
+	@CsvBindByPosition(position = 2)
 	@Column(name="taskDescription")
 	private String taskDescription;
+	@CsvBindByPosition(position = 3)
 	@Column(name="taskPriority")
 	private TaskPriority taskPriority;
+	@CsvBindByPosition(position = 4)
 	@Column(name="taskState")
 	private TaskState taskState;
-	
+	@CsvBindByPosition(position = 5)
 	@Column(name="created", updatable = false)
 	@CreationTimestamp
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime created;
+	@CsvBindByPosition(position = 6)
 	@Column(name="updated")
 	@UpdateTimestamp
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")

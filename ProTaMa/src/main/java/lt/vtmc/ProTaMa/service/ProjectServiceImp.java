@@ -1,12 +1,11 @@
 package lt.vtmc.ProTaMa.service;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import lt.vtmc.ProTaMa.model.Project;
 import lt.vtmc.ProTaMa.model.ProjectStatus;
 import lt.vtmc.ProTaMa.repository.ProjectRepository;
@@ -64,7 +63,6 @@ public class ProjectServiceImp implements ProjectService {
 		project.setProjectStatus(ProjectStatus.COMPLETED);
 		return projectRepository.save(project);
 	}
-
 
 
 }

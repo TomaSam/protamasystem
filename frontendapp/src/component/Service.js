@@ -68,6 +68,12 @@ class Service {
     // searchTaskById(search) {
     //     return axios.get(`http://localhost:8080/api/projects/searchtaskid?search=${search}`)
     // }
+    exportProjects() {
+        return axios.get(`http://localhost:8080/api/projects/exportProjects`);
+    }
+    exportTasks(projectId) {
+        return axios.get(`http://localhost:8080/api/projects/exportTasks/${projectId}`);
+    }
 
 }
 

@@ -81,12 +81,6 @@ body {
   margin-left: 40px;
 }
 
-/* .sidebar-navigation .header {
-  font-size: 15px;
-  text-transform: uppercase;
-  padding: 10px 15px 10px 30px;
-}  */
-
 .content-container {
   padding-top: 20px;
   padding-left: 240px;
@@ -123,6 +117,7 @@ body {
   color: #5bc0de;
   height: 40px;
   width: 40px;
+  padding-right: 10px;
 }
 
 .icon-class {
@@ -147,9 +142,6 @@ body {
   width: 300px;
   margin-bottom: 20px;
   background-color: #5bc0de;
-  /* text-align: center;
-  vertical-align: baseline; */
-  /* display: table-cell; */
   align-items: center;
 }
 
@@ -175,4 +167,8 @@ body {
 
 .header {
   color: #374785;
+}
+
+.icon-display {
+  display: inline-flex;
 }

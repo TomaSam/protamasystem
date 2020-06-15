@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import '../App.css';
 import Service from './Service';
-import { FaEdit, FaTrashAlt, FaPlusSquare, FaFileAlt } from "react-icons/fa";
+import { FaEdit, FaTrashAlt, FaPlusSquare, FaFileAlt, FaFileExport } from "react-icons/fa";
 import {Link} from 'react-router-dom';
 import ProjectSearch from './ProjectSearch';
 import { IconContext } from "react-icons";
+
 
 class ProjectsList extends Component {
     constructor(props) {
@@ -39,6 +40,24 @@ class ProjectsList extends Component {
             console.log(sortedprojects);
             this.setState({sortedprojects});
         })
+    }
+
+    exportProjects() {
+        Service.exportProjects()
+        .then(
+            response => {
+                console.log(response);
+                var csvdata = window.URL.createObjectURL(new Blob([response.data]));
+                console.log(csvdata);
+                var downloadedDocument= document.createElement("a");
+                console.log(downloadedDocument);
+                downloadedDocument.href = csvdata;
+                downloadedDocument.target = "_blank";
+                downloadedDocument.download = "Projects.csv";
+                document.body.appendChild(downloadedDocument);
+                downloadedDocument.click();
+            }
+        )
     }
 
     changeBtnColor = (status) => {
@@ -80,21 +99,28 @@ class ProjectsList extends Component {
     render() {
         return (
             <div className="content-container">
-               <ProjectSearch search={this.search}/>
-                {/* <button className="btn btn-info btn-lg pt-pr-pb-5" 
-                onClick = {() => this.createProject()}><FaPlusSquare /></button> */}
-                <div >
-                <IconContext.Provider value={{ className: "icon-class-1" }}  >
-                    <div>
-                        <FaPlusSquare onClick = {() => this.createProject()} title="Create new project" />
-                    </div>
-                </IconContext.Provider>
                 
                 <h3 className="text-center header mt-3 mb-3">List of Projects</h3>
+                
+                    <div className="icon-display">
+                        {/* <IconContext.Provider value={{ className: "icon-class-1" }} className="pr-10px" > */}
+                            <div>
+                                <FaPlusSquare onClick = {() => this.createProject()} title="Create new project" 
+                                className="icon-class-1" />
+                            </div>
+                        {/* </IconContext.Provider> */}
+
+                        {/* <IconContext.Provider value={{ className: "icon-class-1" }}  > */}
+                            <div>
+                                <FaFileExport onClick = {() => this.exportProjects()} title="Export projects" 
+                                className="icon-class-1" />
+                            </div>
+                        {/* </IconContext.Provider> */}
+                    </div>
+                    <div className="float-right">
+                <ProjectSearch search={this.search}/>
                 </div>
-                <div>
-                {this.state.message && <h4>test{this.state.message}</h4>}
-                </div>
+
                 <table className="table">
                     <thead className="thead-primary">
                         <tr>
@@ -119,10 +145,7 @@ class ProjectsList extends Component {
                             {this.inprogressTasks(project.projectId)}/
                             {this.doneTasks(project.projectId)}</td>  
                             <td>
-                                {/* <Link to={`/api/projects/${project.projectId}`}>
-                                <button className="btn btn-info" ><MdPageview />
-                                </button>
-                                </Link> */}
+                                
                                 <Link to={`/api/projects/${project.projectId}`}>
                                 <IconContext.Provider value={{ className: "icon-class" }}  >
                                     <div>
@@ -132,10 +155,7 @@ class ProjectsList extends Component {
                                 </Link>
                             </td>
                             <td>
-                                {/* <Link to={`/api/projects/update/${project.projectId}`}>
-                                <button className="btn btn-info"><FaEdit />
-                                </button>
-                                </Link> */}
+                               
                                 <Link to={`/api/projects/update/${project.projectId}`}>
                                 <IconContext.Provider value={{ className: "icon-class" }}  >
                                     <div>
@@ -145,9 +165,7 @@ class ProjectsList extends Component {
                                 </Link>
                             </td>
                             <td>
-                                {/* <button className="btn btn-info" 
-                                onClick={() => this.deleteProject(project.projectId)}><FaTrashAlt />
-                                </button> */}
+                               
                                 <IconContext.Provider value={{ className: "icon-class" }}>
                                     <div>
                                         <FaTrashAlt onClick={() => this.deleteProject(project.projectId)} />

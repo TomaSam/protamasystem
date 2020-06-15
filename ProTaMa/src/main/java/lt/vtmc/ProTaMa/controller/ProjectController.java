@@ -2,6 +2,8 @@ package lt.vtmc.ProTaMa.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lt.vtmc.ProTaMa.model.Project;
 import lt.vtmc.ProTaMa.model.Task;
+import lt.vtmc.ProTaMa.service.ExportCsv;
 import lt.vtmc.ProTaMa.service.ProjectService;
 import lt.vtmc.ProTaMa.service.TaskService;
 
@@ -213,7 +216,26 @@ public class ProjectController {
 		return new ResponseEntity<>(newTask, HttpStatus.OK);
 	}
 	
+/*** Exporting Data to CSV	***/
+	@GetMapping(value="/exportProjects", produces="text/csv")
+	public void exportProjects(HttpServletResponse res) {
+		try {
+			new ExportCsv<Project>().exportDataToCsv(res.getWriter(), projectService.getAllProjects());
+		}
+		catch (Exception e) {
+			
+		}	
+	}
 	
+	@GetMapping(value="/exportTasks/{projectId}", produces="text/csv") 
+	public void exportTasks(HttpServletResponse res, @PathVariable("projectId") Long projectId) {
+		try {
+			new ExportCsv<Task>().exportDataToCsv(res.getWriter(), taskService.getAllTasksByProjectId(projectId));
+		}
+		catch (Exception e) {
+			
+		}	
+	}
 	
 	
 

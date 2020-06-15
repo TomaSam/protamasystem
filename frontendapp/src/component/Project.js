@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Service from './Service';
-// import axios from 'axios';
 import '../App.css';
 import {Link} from 'react-router-dom';
 import TaskModal from './TaskModal';
@@ -12,7 +11,6 @@ class Project extends Component {
             project: {},
             tasks: []
         }
-        // this.getProjectById = this.getProjectById.bind(this)
         this.refresh = this.refresh.bind(this);
     }
 
@@ -35,15 +33,6 @@ class Project extends Component {
     refresh() {
         this.componentDidMount();
     }
-
-    // getProjectById(id) {
-    //     Service.getProject(${projectId})
-    //         .then((result) => {
-    //             const project = result.data;
-    //             console.log(project);
-    //             this.setState({project});
-    //         })
-    // }
 
     changeBtnColor = (status) => {
         return status === 'INPROGRESS'? "badge badge-danger": 
@@ -91,20 +80,24 @@ class Project extends Component {
         }
     }
 
-    // inputChange = (event) => {
-    //     this.setState({[event.target.name]: event.target.value,});
-    // };
-
-    // updateForm = (event) => {
-    //     event.preventDefault();
-    //     const task = {
-    //         taskId: this.state.taskId,
-    //         taskState: this.state.taskState,
-    //     };
-
-    //     Service.updateProject(task.taskState, task.taskId)
-    //         .then(respose => {this.componentDidMount()})
-    // }
+    exportTasks(projectId) {
+        Service.exportTasks(projectId)
+            .then(
+                response => {
+                    console.log(response);
+                    var csvTasks = window.URL.createObjectURL(new Blob([response.data]));
+                    console.log(csvTasks);
+                    var downloadedDocument= document.createElement("a");
+                    console.log(downloadedDocument);
+                    downloadedDocument.href = csvTasks;
+                    console.log()
+                    downloadedDocument.target = "_blank";
+                    downloadedDocument.download = "Tasks.csv";
+                    document.body.appendChild(downloadedDocument);
+                    downloadedDocument.click();
+                }
+            )
+    }
 
     updateInprogress(taskId) {
         Service.updateTaskInprogress(taskId)
@@ -154,6 +147,9 @@ class Project extends Component {
                 </Link>
                 <button className="btn button-color btn-lg" onClick={() => this.updateCompleted(projectId)}>
                     Mark as Completed
+                </button>
+                <button className="btn button-color btn-lg" onClick={() => this.exportTasks(projectId)}>
+                   Export Tasks
                 </button>
 
                     {/* Tasks List by status  */}
@@ -205,8 +201,6 @@ class Project extends Component {
                                 </div>
                             </div>
                         </div>
-                     {/* )} 
-                 </div>    */}
             </div>
         )
     }

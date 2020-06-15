@@ -40,7 +40,7 @@ class ProjectSearch extends Component {
     render() {
         return (
         <div>
-            <form onSubmit={this.submitForm} className="form-inline my-2 my-lg-0 float-right">
+            <form onSubmit={this.submitForm} className="form-inline my-2 my-lg-0">
                 <input name="searchProject" className="form-control mr-sm-2" type="search" 
                 placeholder="Search for..." aria-label="Search"
                 onChange={this.inputChange} />

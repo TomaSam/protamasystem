@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.opencsv.bean.CsvBindByPosition;
 
 
 @Entity
@@ -21,17 +22,22 @@ public class Project {
 	
 	@Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
+	@CsvBindByPosition(position = 0)
 	@Column(name="projectId")
 	private Long projectId;
+	@CsvBindByPosition(position = 1)
 	@Column(name="projectTitle")
 	private String projectTitle;
+	@CsvBindByPosition(position = 2)
 	@Column(name="projectDescription")
 	private String projectDescription;
+	@CsvBindByPosition(position = 3)
 	@Column(name="projectStatus")
 	private ProjectStatus projectStatus;
+	
 	@JsonIgnore
 	@OneToMany(mappedBy="project", fetch = FetchType.LAZY)
-	private List<Task> tasks = new ArrayList<>();;
+	private List<Task> tasks = new ArrayList<>();
 	
 	public Project() {
 		
