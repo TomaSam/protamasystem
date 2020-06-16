@@ -19,12 +19,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lt.vtmc.ProTaMa.model.Project;
 import lt.vtmc.ProTaMa.model.Task;
 import lt.vtmc.ProTaMa.service.ExportCsv;
 import lt.vtmc.ProTaMa.service.ProjectService;
 import lt.vtmc.ProTaMa.service.TaskService;
 
+@Api(value="project")
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/projects")
@@ -37,6 +41,7 @@ public class ProjectController {
 	private TaskService taskService;
 	
 	@GetMapping
+	@ApiOperation(value="Get projects", notes="Returns all created projects.")
 	public ResponseEntity<List<Project>> getAllProjects() {
 		List<Project> allProjects = projectService.getAllProjects();
 		if (allProjects.isEmpty()) {
@@ -46,6 +51,7 @@ public class ProjectController {
 	}
 	
 	@GetMapping(value="/{projectId}")
+	@ApiOperation(value="Get project By Id", notes="Returns project by project id")
 	public ResponseEntity<Project> getProjectById(@PathVariable("projectId") Long projectId) {
 		Project project = projectService.findById(projectId);
 		if (project == null) {
@@ -55,18 +61,21 @@ public class ProjectController {
 	}
 	
 	@PostMapping
+	@ApiOperation(value="Create project", notes="Create new project")
 	public ResponseEntity<Project> createProject(@RequestBody Project project) {	
 		projectService.createProject(project);
 		return new ResponseEntity<Project>(project, HttpStatus.CREATED);
 	}
 	
 	@PutMapping(value="/{projectId}")
+	@ApiOperation(value="Update project", notes="Update project")
 	public ResponseEntity<Project> updateProject(@PathVariable("projectId") Long projectId, @RequestBody Project project) {
 		projectService.updateProject(projectId, project);
 		return new ResponseEntity<Project>(project, HttpStatus.OK);
 	}
 	
 	@DeleteMapping(value="/{projectId}")
+	@ApiOperation(value="Delete project", notes="Delete project by project Id")
 	public ResponseEntity<Void> deleteProject(@PathVariable("projectId") Long projectId) {
 		Project project = projectService.findById(projectId);
 		if (project == null) {
@@ -77,6 +86,7 @@ public class ProjectController {
 	}
 	
 	@GetMapping(value="/searchproject")
+	@ApiOperation(value="Search project", notes="Search project by part of word")
 	public ResponseEntity<List<Project>> searchProject(@RequestParam("search") String search) {
 		List<Project> searchProjects = projectService.searchProject(search);
 		if (searchProjects.isEmpty()) {
@@ -86,6 +96,7 @@ public class ProjectController {
 	}
 	
 	@PatchMapping(value="/{projectId}/completed")
+	@ApiOperation(value="Update project status", notes="Change project status to Completed")
 	public ResponseEntity<Project> updateProjectCompleted(@PathVariable("projectId") Long projectId) {
 		Project newProject = projectService.updateProjectCompleted(projectId);
 		return new ResponseEntity<>(newProject, HttpStatus.OK);
@@ -94,6 +105,7 @@ public class ProjectController {
 /*	Tasks */
 	
 	@GetMapping(value="/tasks")
+	@ApiOperation(value="Get tasks", notes="Get all tasks")
 	public ResponseEntity<List<Task>> getAllTasks() {
 		List<Task> allTasks = taskService.getAllTasks();
 		if (allTasks.isEmpty()) {
@@ -103,6 +115,7 @@ public class ProjectController {
 	}
 	
 	@GetMapping(value="/{projectId}/tasks")
+	@ApiOperation(value="Get project tasks", notes="Get all tasks by project Id.")
 	public ResponseEntity<List<Task>> getAllTasksById(@PathVariable Long projectId) {
 		
 		List<Task> allTasks = taskService.getAllTasksByProjectId(projectId);
@@ -113,6 +126,7 @@ public class ProjectController {
 	}
 	
 	@GetMapping(value="/tasks/{taskId}")
+	@ApiOperation(value="Get task by task Id", notes="Get task by task Id")
 	public ResponseEntity<Task> getTaskByTaskId(@PathVariable("taskId") Long taskId) {
 		Task newTask = taskService.findById(taskId);
 		if (newTask == null) {
@@ -121,17 +135,8 @@ public class ProjectController {
 		return new ResponseEntity<Task>(newTask, HttpStatus.OK);
 	}
 	
-//	Search methods for task
-//	@GetMapping(value="/searchtaskid")
-//	public ResponseEntity<List<Task>> searchTaskById(@RequestParam("search") Long taskId) {
-//		List<Task> searchTask = taskService.searchtTaskById(taskId);
-//		if (searchTask.isEmpty()) {
-//			return new ResponseEntity<List<Task>>(HttpStatus.NOT_FOUND);
-//		}
-//		return new ResponseEntity<List<Task>>(searchTask, HttpStatus.OK);
-//	}
-	
 	@GetMapping(value="/searchtask")
+	@ApiOperation(value="Search task", notes="Search task by part of word or task id")
 	public ResponseEntity<List<Task>> searchTask(@RequestParam("search") String search) {
 		List<Task> searchTask = taskService.searchTask(search);
 		if (searchTask.isEmpty()) {
@@ -141,24 +146,21 @@ public class ProjectController {
 	}
 	
 	@PostMapping(value="/{projectId}/tasks")
+	@ApiOperation(value="Create task", notes="Create task and add to project")
 	public ResponseEntity<Task> addTaskToProject(@PathVariable Long projectId, @RequestBody Task task) {
 		taskService.createTask(task, projectId);
 		return new ResponseEntity<Task>(task, HttpStatus.CREATED);
 	}
 	
-//	@DeleteMapping(value="/{projectId}/tasks/{taskId}")
-//	public ResponseEntity<Void> deleteTask(@PathVariable Long projectId, @PathVariable Long taskId) {
-//		taskService.deleteTask(taskId);
-//		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-//	}
-	
 	@DeleteMapping(value="/tasks/{taskId}")
+	@ApiOperation(value="Delete task", notes="Delete task by task Id")
 	public ResponseEntity<Void> deleteTask(@PathVariable Long taskId) {
 		taskService.deleteTask(taskId);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
 	
 	@PutMapping(value="/tasks/{taskId}")
+	@ApiOperation(value="Update task", notes="Update task by task Id")
 	public ResponseEntity<Task> updateTask(@PathVariable Long taskId, @RequestBody Task task) {
 		taskService.updateTask(task, taskId);
 		return new ResponseEntity<Task>(task, HttpStatus.OK);
@@ -192,12 +194,6 @@ public class ProjectController {
 		return new ResponseEntity<List<Task>>(doneTasks, HttpStatus.OK);
 	}
 	
-//	@PatchMapping(value="/tasks/{taskId}")
-//	public ResponseEntity<Task> updateTaskState(@RequestParam("taskState") TaskState taskState, @PathVariable("taskId") Long taskId) {
-//		Task newTask = taskService.updateTaskState(taskState, taskId);
-//		return new ResponseEntity<>(newTask, HttpStatus.OK);
-//	}
-	
 	@PatchMapping(value="/tasks/{taskId}/inprogress")
 	public ResponseEntity<Task> updateTaskInprogress(@PathVariable("taskId") Long taskId) {
 		Task newTask = taskService.updateTaskINPROGRESS(taskId);
@@ -218,6 +214,7 @@ public class ProjectController {
 	
 /*** Exporting Data to CSV	***/
 	@GetMapping(value="/exportProjects", produces="text/csv")
+	@ApiOperation(value="Export projects", notes="Export projects to CSV file.")
 	public void exportProjects(HttpServletResponse res) {
 		try {
 			new ExportCsv<Project>().exportDataToCsv(res.getWriter(), projectService.getAllProjects());
@@ -227,7 +224,8 @@ public class ProjectController {
 		}	
 	}
 	
-	@GetMapping(value="/exportTasks/{projectId}", produces="text/csv") 
+	@GetMapping(value="/exportTasks/{projectId}", produces="text/csv")
+	@ApiOperation(value="Export tasks", notes="Export tasks of project to CSV file")
 	public void exportTasks(HttpServletResponse res, @PathVariable("projectId") Long projectId) {
 		try {
 			new ExportCsv<Task>().exportDataToCsv(res.getWriter(), taskService.getAllTasksByProjectId(projectId));

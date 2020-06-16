@@ -31,8 +31,14 @@ public class ProTaMaApplication {
 	}
 
 	private ApiInfo apiInfo() {
-		return new ApiInfoBuilder().title("Documentation").version("0.0.1-SNAPSHOT").build();
+		return new ApiInfoBuilder().title("Protama system Documentation").version("0.0.1-SNAPSHOT").build();
 	}
 	
 
 }
+
+
+
+
+
+
