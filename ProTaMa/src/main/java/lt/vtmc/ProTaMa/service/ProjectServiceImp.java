@@ -42,6 +42,9 @@ public class ProjectServiceImp implements ProjectService {
 	
 	@Override
 	public Project findById(Long id) {
+//		if (projectRepository.findById(id).get().getTasks().size()==0) {
+//			projectRepository.findById(id).get().setProjectStatus(ProjectStatus.NEW);
+//		}
 		return projectRepository.findById(id).orElse(null);
 	}
 

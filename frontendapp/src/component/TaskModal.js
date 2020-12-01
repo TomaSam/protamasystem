@@ -51,7 +51,8 @@ class TaskModal extends Component {
 
     deleteTask(taskId) {
       Service.deleteTask(taskId)
-          .then(respose => {this.props.refresh()})
+      .then(response => {this.hideModal()})
+           .then(respose => {this.props.refresh()})
     }
     
     render() {

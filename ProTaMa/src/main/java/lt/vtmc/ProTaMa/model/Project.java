@@ -95,20 +95,5 @@ public class Project {
 		}
 	}
 	
-//	public Integer countGeneralTasks() {
-//		return tasks.size();
-//	}
-//	
-//	public Integer countInProgressTasks() {
-//		Integer counter = 0;
-//		for (Task task : tasks) {
-//			if (task.getTaskState().equals("INPROGRESS")) {
-//				counter += 1;
-//			}
-//		}
-//	return counter;
-//	}
-	
-	
 
 }

@@ -21,12 +21,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import lt.vtmc.ProTaMa.model.Project;
 import lt.vtmc.ProTaMa.model.Task;
 import lt.vtmc.ProTaMa.service.ExportCsv;
 import lt.vtmc.ProTaMa.service.ProjectService;
 import lt.vtmc.ProTaMa.service.TaskService;
+
+/** 
+* 
+* @author TomaSam 
+*/
 
 @Api(value="project")
 @CrossOrigin(origins = "http://localhost:3000")
@@ -39,7 +43,8 @@ public class ProjectController {
 	
 	@Autowired
 	private TaskService taskService;
-	
+
+/*** Projects	***/	
 	@GetMapping
 	@ApiOperation(value="Get projects", notes="Returns all created projects.")
 	public ResponseEntity<List<Project>> getAllProjects() {
@@ -102,8 +107,7 @@ public class ProjectController {
 		return new ResponseEntity<>(newProject, HttpStatus.OK);
 	}
 
-/*	Tasks */
-	
+/*** Tasks	***/	
 	@GetMapping(value="/tasks")
 	@ApiOperation(value="Get tasks", notes="Get all tasks")
 	public ResponseEntity<List<Task>> getAllTasks() {
@@ -166,7 +170,7 @@ public class ProjectController {
 		return new ResponseEntity<Task>(task, HttpStatus.OK);
 	}
 	
-//Tasks List By State
+/*** Tasks List By State ***/
 	@GetMapping(value="/tasks/inprogress")
 	public ResponseEntity<List<Task>> getTasksINPROGRESS() {
 		List<Task> inProgressTasks = taskService.getTasksINPROGRESS();
@@ -220,7 +224,6 @@ public class ProjectController {
 			new ExportCsv<Project>().exportDataToCsv(res.getWriter(), projectService.getAllProjects());
 		}
 		catch (Exception e) {
-			
 		}	
 	}
 	

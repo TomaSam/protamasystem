@@ -59,7 +59,7 @@ class Project extends Component {
 
     deleteTask(taskId) {
         Service.deleteTask(taskId)
-            .then(respose => {this.componentDidMount()})
+            .then(response => {this.componentDidMount()})
     }
 
     changeProjectStatus = (tasks) => {
